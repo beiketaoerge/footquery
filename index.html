@@ -135,29 +135,23 @@
     <section id="video" class="section">
       <div class="container">
         <h2 class="section-title">Video</h2>
-        <div class="video-grid">
+        <div class="video-switch" role="tablist" aria-label="选择视频平台">
+          <button class="vtab active" type="button" role="tab" aria-selected="true" data-target="yt">YouTube</button>
+          <button class="vtab" type="button" role="tab" aria-selected="false" data-target="bili">哔哩哔哩</button>
+        </div>
 
-          <!-- YouTube 官方视频：KMm06U3nMEE -->
-          <div>
-            <h3 class="video-title">YouTube</h3>
-            <div class="video-frame">
-              <iframe src="https://www.youtube.com/embed/KMm06U3nMEE?rel=0"
-                      title="FootQuery overview video" frameborder="0"
-                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen></iframe>
-            </div>
-          </div>
-
-          <!-- B 站官方视频：BV1DYae68Etm -->
-          <div>
-            <h3 class="video-title">哔哩哔哩</h3>
-            <div class="video-frame">
-              <iframe src="https://player.bilibili.com/player.html?bvid=BV1DYae68Etm&page=1&high_quality=1&danmaku=0&autoplay=0"
-                      title="FootQuery overview video" frameborder="0"
-                      scrolling="no" allow="fullscreen; encrypted-media"></iframe>
-            </div>
-          </div>
-
+        <!-- YouTube 官方视频：KMm06U3nMEE -->
+        <div class="video-frame" data-video="yt" data-provider="yt">
+          <iframe src="https://www.youtube.com/embed/KMm06U3nMEE?rel=0&enablejsapi=1"
+                  title="FootQuery overview video" frameborder="0"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+        </div>
+        <!-- B 站官方视频：BV1DYae68Etm（首次切换时才加载） -->
+        <div class="video-frame hidden" data-video="bili" data-provider="bili">
+          <iframe data-src="https://player.bilibili.com/player.html?bvid=BV1DYae68Etm&page=1&high_quality=1&danmaku=0&autoplay=0"
+                  title="FootQuery overview video" frameborder="0"
+                  scrolling="no" allow="fullscreen; encrypted-media"></iframe>
         </div>
 
         <!-- RELEASES-DOWNLOAD: 高清原片传到本仓库 Releases 后，取消注释并替换真实地址：
