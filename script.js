@@ -41,6 +41,43 @@
   });
 })();
 
+// ---- 视频平台切换（YouTube / 哔哩哔哩） ----
+(function () {
+  var switchBar = document.querySelector('.video-switch');
+  if (!switchBar) return;
+  var tabs = Array.prototype.slice.call(switchBar.querySelectorAll('.vtab'));
+  var frames = Array.prototype.slice.call(document.querySelectorAll('.video-frame[data-video]'));
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      if (tab.classList.contains('active')) return;
+      tabs.forEach(function (t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+
+      frames.forEach(function (frame) {
+        var isTarget = frame.getAttribute('data-video') === tab.getAttribute('data-target');
+        var ifr = frame.querySelector('iframe');
+        if (isTarget) {
+          // 懒加载：首次切换时才写入 src
+          if (ifr && ifr.dataset.src && !ifr.src) ifr.src = ifr.dataset.src;
+          frame.classList.remove('hidden');
+        } else {
+          frame.classList.add('hidden');
+          if (!ifr) return;
+          if (frame.getAttribute('data-provider') === 'yt' && ifr.contentWindow) {
+            // YouTube：用官方 API 暂停，不重载
+            ifr.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":[]}', '*');
+          } else if (ifr.src) {
+            // B 站：重置 src 停止播放
+            var s = ifr.src; ifr.src = s;
+          }
+        }
+      });
+    });
+  });
+})();
+
 // ---- 滚动时高亮导航中当前所在区块 ----
 (function () {
   var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
