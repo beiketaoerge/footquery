@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FootQuery: Future-Touchdown-Guided Retrieval from Depth History for Perceptive Humanoid Locomotion</title>
+
+  <!-- 网站发布后可取消注释并填入正式地址（GitHub Pages 地址或自定义域名） -->
+  <!-- <link rel="canonical" href="https://YOUR-USERNAME.github.io/footquery/"> -->
+
+  <meta name="description" content="FootQuery queries depth history using each foot's predicted next touchdown for perceptive humanoid locomotion. Real-world deployment on a Unitree G1 traverses outdoor stairs and mixed indoor routes with a single policy.">
+  <meta name="author" content="Tao Dong, Jia Yu, Yuxuan Fan, Linna Zhao, Jiaqi Gong, Andong Yang, Chao Gao, Guyue Zhou">
+
+  <!-- Open Graph（分享到微信/Twitter/Slack 时的卡片信息） -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FootQuery: Future-Touchdown-Guided Retrieval from Depth History for Perceptive Humanoid Locomotion">
+  <meta property="og:description" content="A perceptive locomotion framework that queries depth history using each foot's predicted next touchdown. Deployed on a Unitree G1 with a single policy.">
+  <!-- 做好 teaser 图后取消注释（发布后需改成绝对路径，如 https://<用户名>.github.io/footquery/static/images/teaser.jpg） -->
+  <!-- <meta property="og:image" content="static/images/teaser.jpg"> -->
+
+  <!-- Google Scholar / 学术索引用的 citation 元信息 -->
+  <meta name="citation_title" content="FootQuery: Future-Touchdown-Guided Retrieval from Depth History for Perceptive Humanoid Locomotion">
+  <meta name="citation_author" content="Dong, Tao">
+  <meta name="citation_author" content="Yu, Jia">
+  <meta name="citation_author" content="Fan, Yuxuan">
+  <meta name="citation_author" content="Zhao, Linna">
+  <meta name="citation_author" content="Gong, Jiaqi">
+  <meta name="citation_author" content="Yang, Andong">
+  <meta name="citation_author" content="Gao, Chao">
+  <meta name="citation_author" content="Zhou, Guyue">
+  <meta name="citation_date" content="2026/09/18">
+  <meta name="citation_arxiv_id" content="2609.21447">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2609.21447">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231d4f91'/%3E%3Ctext x='32' y='45' font-family='Georgia, serif' font-size='38' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ======= 顶部导航 ======= -->
+  <nav class="topnav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#top">FootQuery<span class="brand-sub">arXiv:2609.21447</span></a>
+      <div class="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#video">Video</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#citation">Citation</a>
+        <a class="btn btn-small btn-primary" href="https://arxiv.org/abs/2609.21447" target="_blank" rel="noopener">arXiv</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+
+    <!-- ======= 标题与作者 ======= -->
+    <header class="hero">
+      <div class="container">
+        <h1 class="paper-title">FootQuery: Future-Touchdown-Guided Retrieval from Depth&nbsp;History for Perceptive Humanoid Locomotion</h1>
+        <p class="authors">
+          <!-- 论文中带 * 的同等贡献作者：请给对应名字加上 <sup class="mark">*</sup> 并在下方脚注补一句 *Equal contribution. -->
+          <a href="#">Tao Dong<sup class="mark">1</sup></a><span class="sep">,</span>
+          <a href="#">Jia Yu<sup class="mark">2</sup></a><span class="sep">,</span>
+          <a href="#">Yuxuan Fan<sup class="mark">3</sup></a><span class="sep">,</span>
+          <a href="#">Linna Zhao<sup class="mark">2</sup></a><span class="sep">,</span>
+          <a href="#">Jiaqi Gong<sup class="mark">2</sup></a><span class="sep">,</span>
+          <a href="#">Andong Yang<sup class="mark">4</sup></a><span class="sep">,</span>
+          <a href="#">Chao Gao<sup class="mark">1</sup></a><span class="sep">,</span>
+          <a href="#">Guyue Zhou<sup class="mark">1,&dagger;</sup></a>
+        </p>
+        <p class="affiliations">
+          <sup class="mark">1</sup>Institute for AI Industry Research (AIR), Tsinghua University&ensp;·&ensp;
+          <sup class="mark">2</sup>University of Science and Technology Beijing&ensp;·&ensp;
+          <sup class="mark">3</sup>Nanyang Technological University&ensp;·&ensp;
+          <sup class="mark">4</sup>Department of Electrical Engineering, Tsinghua University
+        </p>
+        <p class="footnote-line"><sup class="mark">&dagger;</sup>Corresponding author.</p>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://arxiv.org/abs/2609.21447" target="_blank" rel="noopener">arXiv</a>
+          <a class="btn btn-outline" href="https://arxiv.org/pdf/2609.21447" target="_blank" rel="noopener">PDF</a>
+          <!-- CODE-LINK: 代码开源后，把下面这个 span 换成 <a class="btn btn-outline" href="https://github.com/xxx/footquery" target="_blank">Code</a> -->
+          <span class="btn btn-ghost" title="Coming soon">Code<em>soon</em></span>
+          <a class="btn btn-outline" href="#video">Video</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ======= Teaser 图 ======= -->
+    <section class="container section" aria-label="Teaser">
+      <!-- PLACEHOLDER-TEASER: 首图（社区惯例：图片或几秒循环短片均可）。
+           · 图片：teaser.jpg 放入 static/images/，用本注释下方 <img> 示例替换占位块
+           · 短片：teaser.mp4 放入 static/videos/（控制在几 MB），用 <video> 示例替换：
+             <video autoplay muted loop playsinline width="100%">
+               <source src="static/videos/teaser.mp4" type="video/mp4">
+             </video> -->
+      <div class="media-placeholder wide">
+        <p class="ph-title">Teaser</p>
+        <p class="ph-hint">图片放 <code>static/images/teaser.jpg</code> 或几秒循环短片放 <code>static/videos/teaser.mp4</code>，按 “PLACEHOLDER-TEASER” 注释替换</p>
+      </div>
+    </section>
+
+    <!-- ======= 摘要 ======= -->
+    <section id="abstract" class="section section-soft">
+      <div class="container">
+        <h2 class="section-title">Abstract</h2>
+        <p class="abstract-text">
+          Humanoid locomotion over complex terrain requires anticipating footholds that may no longer be
+          visible at touchdown. Limited camera coverage and self-occlusion make it necessary to retrieve
+          relevant terrain information from earlier observations. We present <strong>FootQuery</strong>, a
+          perceptive locomotion framework that queries depth history using each foot's predicted next
+          touchdown. The policy predicts touchdown locations and uncertainty from proprioception and uses
+          these distributions, together with per-foot features, to query sparsely sampled historical depth
+          frames. During training, realized contacts are projected into historical images to supervise
+          retrieval at the regions where those contacts were visible. The retrieved per-foot features are
+          fused with global visual memory to generate control actions. A progressive force-assistance
+          curriculum supports early exploration, while event-consistent tread-midline shaping encourages
+          coordinated stair contacts. Deployment requires only proprioception and onboard depth images. In
+          simulation, the complete framework outperforms its component ablations on the most challenging
+          tested stairs, gaps, and platforms. Real-world experiments on a Unitree G1 demonstrate continuous
+          traversal with a single policy across outdoor stairs and indoor routes combining stair ascent and
+          descent, platforms, and gaps. These results support organizing visual history around anticipated
+          contacts for perceptive humanoid locomotion.
+        </p>
+      </div>
+    </section>
+
+    <!-- ======= 视频区（长视频的正确放法，社区惯例） =======
+         · 长视频不放进本仓库：GitHub Pages 限制为 站点 ≤1GB、单文件 ≤100MB、不支持 Git LFS
+         · 长视频上传 YouTube（海外）和 B 站（国内），下面两侧同时嵌入
+         · 要提供高清原片下载：mp4 传到本仓库的 GitHub Releases（单文件 ≤2GB，
+           不计入仓库体积），链接形如
+           https://github.com/<用户名>/footquery/releases/download/v1.0/footquery.mp4 -->
+    <section id="video" class="section">
+      <div class="container">
+        <h2 class="section-title">Video</h2>
+        <div class="video-grid">
+
+          <!-- YOUTUBE: 视频上传 YouTube 后，把本注释下整个 <div>（占位块）换成：
+               <div>
+                 <h3 class="video-title">YouTube</h3>
+                 <div class="video-frame">
+                   <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0"
+                           title="FootQuery overview video" frameborder="0"
+                           allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                           allowfullscreen></iframe>
+                 </div>
+               </div> -->
+          <div>
+            <h3 class="video-title">YouTube</h3>
+            <div class="media-placeholder video-ph">
+              <p class="ph-title">长视频 · YouTube 嵌入</p>
+              <p class="ph-hint">按 “YOUTUBE” 注释替换为 iframe</p>
+            </div>
+          </div>
+
+          <!-- BILIBILI: 国内访问 github.io / YouTube 不稳定，B 站嵌入是国内项目页标配。
+               视频上传 B 站后，把本注释下整个 <div>（占位块）换成：
+               <div>
+                 <h3 class="video-title">哔哩哔哩</h3>
+                 <div class="video-frame">
+                   <iframe src="https://player.bilibili.com/player.html?bvid=BVXXXXXXXX&page=1&high_quality=1&danmaku=0&autoplay=0"
+                           title="FootQuery overview video" frameborder="0"
+                           scrolling="no" allow="fullscreen; encrypted-media"></iframe>
+                 </div>
+               </div>
+               BV 号获取：B 站视频页 → 分享 → 嵌入代码 -->
+          <div>
+            <h3 class="video-title">哔哩哔哩</h3>
+            <div class="media-placeholder video-ph">
+              <p class="ph-title">长视频 · B 站嵌入</p>
+              <p class="ph-hint">按 “BILIBILI” 注释替换；国内观众优先看这里</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RELEASES-DOWNLOAD: 高清原片传到本仓库 Releases 后，取消注释并替换真实地址：
+        <p class="video-download">视频加载慢？<a href="https://github.com/<用户名>/footquery/releases/download/v1.0/footquery.mp4" target="_blank" rel="noopener">下载高清原片（mp4）</a></p> -->
+      </div>
+    </section>
+
+    <!-- ======= 方法 ======= -->
+    <section id="method" class="section section-soft">
+      <div class="container">
+        <h2 class="section-title">Method</h2>
+
+        <div class="callout">
+          <strong>Key idea.</strong> Organize visual history around anticipated contacts — query the past
+          for where the feet <em>will</em> land. Only <strong>7.82%</strong> of future touchdowns are visible
+          in the current camera ROI, while <strong>67.89%</strong> are visible somewhere in the retained
+          depth history.
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <h3>Touchdown Prediction</h3>
+            <p>The policy predicts each foot's next touchdown location and uncertainty from proprioception
+               alone, reaching a 1.31&thinsp;cm XY MAE at a 3-step lead time.</p>
+          </div>
+          <div class="card">
+            <h3>Depth-History Query</h3>
+            <p>Predicted touchdown distributions, together with per-foot features, query sparsely sampled
+               historical depth frames to recover terrain evidence that is no longer in view.</p>
+          </div>
+          <div class="card">
+            <h3>Contact-Supervised Retrieval</h3>
+            <p>During training, realized contacts are projected into past depth images, supervising
+               retrieval exactly at the regions where those contacts were visible.</p>
+          </div>
+          <div class="card">
+            <h3>Feature Fusion</h3>
+            <p>Retrieved per-foot features are fused with a global visual memory to generate control
+               actions, requiring only proprioception and onboard depth at deployment.</p>
+          </div>
+          <div class="card">
+            <h3>Force-Assistance Curriculum</h3>
+            <p>A progressive external force-assistance curriculum supports early exploration and is
+               annealed as the policy improves, accelerating aggregate-success milestones.</p>
+          </div>
+          <div class="card">
+            <h3>Tread-Midline Shaping</h3>
+            <p>Event-consistent tread-midline shaping rewards encourage coordinated, well-centered stair
+               contacts across both feet.</p>
+          </div>
+        </div>
+
+        <!-- PLACEHOLDER-PIPELINE: 方法总览图，放入 static/images/pipeline.jpg 后替换本占位块：
+             <figure> <img src="static/images/pipeline.jpg" alt="FootQuery pipeline"> <figcaption>...</figcaption> </figure> -->
+        <div class="media-placeholder">
+          <p class="ph-title">Pipeline figure</p>
+          <p class="ph-hint">方法总览图占位（“PLACEHOLDER-PIPELINE” 注释处替换）</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= 结果 ======= -->
+    <section id="results" class="section">
+      <div class="container">
+        <h2 class="section-title">Results</h2>
+
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">success on all six MuJoCo terrain types vs. released controllers (10 trials each)</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">87 / 94 / 91<span class="stat-unit">%</span></div>
+            <div class="stat-label">success on the hardest tested stairs (20&thinsp;cm), gaps (50&thinsp;cm), and platforms (50&thinsp;cm)</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">1.31<span class="stat-unit">cm</span></div>
+            <div class="stat-label">touchdown-prediction XY MAE at a 3-step lead (8.52&thinsp;cm at 24 steps)</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">81.7 / 95.8<span class="stat-unit">%</span></div>
+            <div class="stat-label">retrieval attention Top-1 / Top-3 hit rate on visible historical footholds</div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <caption>Success rates on the most challenging terrains tested in simulation, and gains from
+                     removing each component (as reported in the paper).</caption>
+            <thead>
+              <tr><th>Terrain (hardest tested)</th><th class="num">FootQuery</th><th class="num">vs. w/o FootQuery</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Stairs · 20&thinsp;cm steps</td><td class="num strong">87%</td><td class="num">+13 pp</td></tr>
+              <tr><td>Gaps · 50&thinsp;cm</td><td class="num strong">94%</td><td class="num">+60 pp</td></tr>
+              <tr><td>Platforms · 50&thinsp;cm</td><td class="num strong">91%</td><td class="num">+55 pp</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ul class="result-notes">
+          <li>In head-to-head MuJoCo trials, FootQuery succeeded on all six terrain types, while the
+              released MoRE controller failed the 40&thinsp;cm platform (0%) and Hiking failed platforms
+              and gaps (0% each).</li>
+          <li>The force-assistance curriculum reaches 0.5 aggregate success roughly 1.5–2 thousand PPO
+              iterations earlier than training without assistance.</li>
+          <li>Real-world: a single policy on a Unitree G1 continuously traverses outdoor stairs and indoor
+              routes combining stair ascent and descent, platforms, and gaps.</li>
+        </ul>
+
+        <!-- PLACEHOLDER-RESULTS: 结果图/对比图画廊，可复制本占位块多次使用 -->
+        <div class="media-placeholder">
+          <p class="ph-title">Results gallery</p>
+          <p class="ph-hint">仿真对比、真机轨迹截图等放入 <code>static/images/</code> 后替换（“PLACEHOLDER-RESULTS” 注释处）</p>
+        </div>
+
+        <!-- CLIP-GRID: 结果对比短视频墙（社区惯例，每格一段几秒循环短片，放 static/videos/）。
+             需要时复制本段（每段视频控制在几 MB）：
+             <div class="clip-grid">
+               <figure class="clip">
+                 <video src="static/videos/stairs.mp4" autoplay muted loop playsinline></video>
+                 <figcaption><strong>Outdoor stairs.</strong> 单策略连续通过户外台阶</figcaption>
+               </figure>
+               <figure class="clip">
+                 <video src="static/videos/gaps.mp4" autoplay muted loop playsinline></video>
+                 <figcaption><strong>Indoor gaps.</strong> 50 cm 断台连续通过</figcaption>
+               </figure>
+             </div> -->
+      </div>
+    </section>
+
+    <!-- ======= 引用 ======= -->
+    <section id="citation" class="section section-soft">
+      <div class="container">
+        <h2 class="section-title">Citation</h2>
+        <p class="citation-lead">If you find our work useful, please cite:</p>
+        <div class="bibtex-wrap">
+          <button class="btn btn-copy" id="copy-bibtex" type="button">Copy BibTeX</button>
+          <!-- BIBTEX: 论文录用会议/期刊后，同步更新此处的 venue 信息 -->
+          <pre id="bibtex"><code>@article{dong2026footquery,
+  author  = {Dong, Tao and Yu, Jia and Fan, Yuxuan and Zhao, Linna and
+             Gong, Jiaqi and Yang, Andong and Gao, Chao and Zhou, Guyue},
+  title   = {{FootQuery}: Future-Touchdown-Guided Retrieval from Depth
+             History for Perceptive Humanoid Locomotion},
+  journal = {arXiv preprint arXiv:2609.21447},
+  year    = {2026}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= 页脚 ======= -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 FootQuery Authors · Institute for AI Industry Research (AIR), Tsinghua University</p>
+        <p class="footer-links">
+          <a href="https://arxiv.org/abs/2609.21447" target="_blank" rel="noopener">arXiv:2609.21447</a>
+          <!-- 联系方式：填入通讯作者邮箱后取消注释
+               · <a href="mailto:xxx@air.tsinghua.edu.cn">Contact</a> -->
+        </p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
