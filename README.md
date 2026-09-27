@@ -89,7 +89,7 @@ index.html 中所有需要动手的位置都有中文注释标记，全局搜索
 | 标记 | 位置 | 说明 |
 |---|---|---|
 | `PLACEHOLDER-TEASER` | 首图 | 图片（`static/images/teaser.jpg`）或几秒循环短片（`static/videos/teaser.mp4`） |
-| `YOUTUBE` / `BILIBILI` | 视频区 | 长视频双平台嵌入，注释里有现成 iframe 代码 |
+| `YOUTUBE` / `BILIBILI` | 视频区 | 已嵌入正式视频（YouTube `KMm06U3nMEE` / B站 `BV1DYae68Etm`）；换视频改对应 iframe 里的 ID 即可 |
 | `RELEASES-DOWNLOAD` | 视频区 | 高清原片下载链接（托管在 GitHub Releases） |
 | `PLACEHOLDER-PIPELINE` | 方法区 | 方法总览图 |
 | `PLACEHOLDER-RESULTS` | 结果区 | 结果图/对比图画廊，占位块可复制多份 |
