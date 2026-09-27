@@ -94,7 +94,7 @@ index.html 中所有需要动手的位置都有中文注释标记，全局搜索
 | `PLACEHOLDER-PIPELINE` | 方法区 | 方法总览图 |
 | `PLACEHOLDER-RESULTS` | 结果区 | 结果图/对比图画廊，占位块可复制多份 |
 | `CLIP-GRID` | 结果区 | 结果对比短视频墙模板 |
-| `CODE-LINK` | 按钮 | 代码开源后把 "Code (soon)" 换成真实链接 |
+| `CODE-LINK` | 按钮 | 代码开源后把 "Code · coming soon" 换成真实链接 |
 | `BIBTEX` | 引用区 | 论文录用后更新 venue（同步改 `citation.bib`） |
 | `canonical` / `og:image` | `<head>` | 网站发布后填入正式地址和分享卡片图 |
 
