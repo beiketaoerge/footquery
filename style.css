@@ -108,6 +108,9 @@ figcaption {
 .nav-links a { color: var(--muted); }
 .nav-links a:hover { color: var(--ink); text-decoration: none; }
 .nav-links a.active { color: var(--accent-dark); font-weight: 600; }
+/* 修复：导航里的 arXiv 主按钮被 .nav-links a 的灰色覆盖，强制白字 */
+.nav-links a.btn-primary,
+.nav-links a.btn-primary:hover { color: #fff; }
 
 /* ============ Hero ============ */
 .hero {
