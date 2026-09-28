@@ -89,16 +89,10 @@
 
     <!-- ======= Teaser 图 ======= -->
     <section class="container section" aria-label="Teaser">
-      <!-- PLACEHOLDER-TEASER: 首图（社区惯例：图片或几秒循环短片均可）。
-           · 图片：teaser.jpg 放入 static/images/，用本注释下方 <img> 示例替换占位块
-           · 短片：teaser.mp4 放入 static/videos/（控制在几 MB），用 <video> 示例替换：
-             <video autoplay muted loop playsinline width="100%">
-               <source src="static/videos/teaser.mp4" type="video/mp4">
-             </video> -->
-      <div class="media-placeholder wide">
-        <p class="ph-title">Teaser</p>
-        <p class="ph-hint">图片放 <code>static/images/teaser.jpg</code> 或几秒循环短片放 <code>static/videos/teaser.mp4</code>，按 “PLACEHOLDER-TEASER” 注释替换</p>
-      </div>
+      <figure>
+        <img src="static/images/teaser.jpg" alt="FootQuery on outdoor terrains: the Unitree G1 traverses stairs, paved surfaces, and walkways along a single route">
+        <figcaption><strong>Figure 1.</strong> FootQuery on outdoor terrains — the Unitree G1 traverses stairs, paved surfaces, and walkways along one route (aerial view with successive motion stages).</figcaption>
+      </figure>
     </section>
 
     <!-- ======= 摘要 ======= -->
@@ -204,12 +198,10 @@
           </div>
         </div>
 
-        <!-- PLACEHOLDER-PIPELINE: 方法总览图，放入 static/images/pipeline.jpg 后替换本占位块：
-             <figure> <img src="static/images/pipeline.jpg" alt="FootQuery pipeline"> <figcaption>...</figcaption> </figure> -->
-        <div class="media-placeholder">
-          <p class="ph-title">Pipeline figure</p>
-          <p class="ph-hint">方法总览图占位（“PLACEHOLDER-PIPELINE” 注释处替换）</p>
-        </div>
+        <figure>
+          <img src="static/images/pipeline.png" alt="FootQuery architecture: historical depth, touchdown-guided retrieval, and feature fusion for control" loading="lazy">
+          <figcaption><strong>Figure 4.</strong> FootQuery architecture. Historical depth supplies global memory and local tokens; proprioceptive foot features and predicted touchdown distributions guide retrieval for control.</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -262,11 +254,14 @@
               routes combining stair ascent and descent, platforms, and gaps.</li>
         </ul>
 
-        <!-- PLACEHOLDER-RESULTS: 结果图/对比图画廊，可复制本占位块多次使用 -->
-        <div class="media-placeholder">
-          <p class="ph-title">Results gallery</p>
-          <p class="ph-hint">仿真对比、真机轨迹截图等放入 <code>static/images/</code> 后替换（“PLACEHOLDER-RESULTS” 注释处）</p>
-        </div>
+        <figure>
+          <img src="static/images/results-prediction.png" alt="Touchdown predictions across flat ground, gaps, platforms, and stairs" loading="lazy">
+          <figcaption><strong>Figure 10.</strong> Touchdown predictions on flat ground, gaps, platforms, and stairs: predicted per-foot distributions track the realized contacts.</figcaption>
+        </figure>
+        <figure>
+          <img src="static/images/results-realworld.jpg" alt="Real-world traversal with one policy on a Unitree G1" loading="lazy">
+          <figcaption><strong>Figure 11.</strong> Real-world traversal with one policy: (a) outdoor stair ascent; (b, c) indoor routes combining stairs, platforms, and gaps.</figcaption>
+        </figure>
 
         <!-- CLIP-GRID: 结果对比短视频墙（社区惯例，每格一段几秒循环短片，放 static/videos/）。
              需要时复制本段（每段视频控制在几 MB）：
